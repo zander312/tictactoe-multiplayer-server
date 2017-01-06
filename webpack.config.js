@@ -42,6 +42,12 @@ module.exports = {
     }, {
       test: /\.css$/,
       loader: 'style!css?modules&localIdentName=[name]---[local]---[hash:base64:5]'
+    }, {
+      test: /\.scss$/,
+      loaders: ["style-loader", "css-loader?modules", "sass-loader?modules"]
+    },{
+      test: /\.(png|jpg|gif|woff|woff2|ttf|otf|eot|svg)$/,
+      loader: 'url-loader?limit=100000'
     }]
   }
 };
