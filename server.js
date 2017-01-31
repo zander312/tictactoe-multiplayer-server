@@ -13,6 +13,7 @@ const port = isDeveloping ? 3000 : process.env.PORT;
 const app = express();
 
 app.get('/test', function(req, res) {
+  console.log("oioioioi")
   res.json({data: "nelly"});
 });
 
