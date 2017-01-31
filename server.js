@@ -6,10 +6,15 @@ const webpack = require('webpack');
 const webpackMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
 const config = require('./webpack.config.js');
+const db = require('./db.js')
 
 const isDeveloping = process.env.NODE_ENV !== 'production';
 const port = isDeveloping ? 3000 : process.env.PORT;
 const app = express();
+
+app.get('/test', function(req, res) {
+  res.json({data: "nelly"});
+});
 
 if (isDeveloping) {
   const compiler = webpack(config);
