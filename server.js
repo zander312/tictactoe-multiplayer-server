@@ -6,16 +6,15 @@ const webpack = require('webpack');
 const webpackMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
 const config = require('./webpack.config.js');
-const db = require('./db.js')
+
 
 const isDeveloping = process.env.NODE_ENV !== 'production';
 const port = isDeveloping ? 3000 : process.env.PORT;
 const app = express();
 
-app.get('/test', function(req, res) {
-  console.log("oioioioi")
-  res.json({data: "nelly"});
-});
+//It loads the router with its routes and defines a prefix for all the routes loaded inside. controllers/index.js
+// 
+app.use(require('./controllers'))
 
 if (isDeveloping) {
   const compiler = webpack(config);
@@ -44,6 +43,8 @@ if (isDeveloping) {
     res.sendFile(path.join(__dirname, 'dist/index.html'));
   });
 }
+
+
 
 app.listen(port, '0.0.0.0', function onStart(err) {
   if (err) {

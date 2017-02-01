@@ -1,21 +1,21 @@
 import React from 'react';
 import styles from './App.scss';
 import './normalize.css';
-import logo from './sba-logo.svg'
+import logo from '../assets/1000-secret-lives-cows-1.jpg'
 import axios from 'axios';
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {test: 'foo'};
+    this.state = {animals: ''};
   }
 
-  componentWillMount() {
-    console.log("ooioioioi")
-    axios.get('/test')
+  componentDidMount() {
+    axios.get('/animals/domestic')
       .then(function(res) {
         console.log(res)
-      })
+        this.setState({animals: res.data.animals})
+      }.bind(this))
       .then(function(err) {
         console.log(err)
       })
@@ -24,9 +24,8 @@ export default class App extends React.Component {
   render() {
     return (
       <div className={styles.headerContainer}>
-        <nav className={styles.header}>
+      <p>Look an ajax using axios!: {this.state.animals}</p>
         <img className={styles.logo} src={logo}/>
-        </nav>
       </div>
     );
   }

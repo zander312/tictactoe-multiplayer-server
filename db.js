@@ -8,3 +8,5 @@ var knex = require('knex')({
     database : 'loadtimes'
   }
 });
+
+module.exports = knex;
