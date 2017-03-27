@@ -1,3 +1,7 @@
+#to change ORIGIN to new ORIGIN when cloning:
+`git remote set-url origin git://new.url.here`
+
+
 # webpack-express-boilerplate
 A boilerplate for running a Webpack workflow in Node express
 
