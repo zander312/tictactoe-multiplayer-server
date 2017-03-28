@@ -14,7 +14,9 @@ export default class AppRouter extends React.Component {
   render() {
     return (
       <Router>
-        <Route path="/" component={SomeComponent}/>
+        <div>
+          <Route path="/" component={SomeComponent}/>
+        </div>
       </Router>
     );
   }
