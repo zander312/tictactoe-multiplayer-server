@@ -1,7 +1,6 @@
 import React from 'react';
-import styles from './App.scss';
-import './normalize.css';
-import logo from '../assets/1000-secret-lives-cows-1.jpg'
+import styles from './SomeComponent.scss';
+import logo from '../../assets/1000-secret-lives-cows-1.jpg'
 import axios from 'axios';
 
 export default class App extends React.Component {
@@ -24,7 +23,7 @@ export default class App extends React.Component {
   render() {
     return (
       <div className={styles.headerContainer}>
-      <p>Look an ajax using axios!: {this.state.animals}</p>
+        <p>Look an ajax using axios!: {this.state.animals}</p>
         <img className={styles.logo} src={logo}/>
       </div>
     );

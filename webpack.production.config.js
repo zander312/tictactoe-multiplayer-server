@@ -16,7 +16,7 @@ module.exports = {
     publicPath: '/'
   },
   plugins: [
-    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.optimize.OccurrenceOrderPlugin(),
     new HtmlWebpackPlugin({
       template: 'app/index.tpl.html',
       inject: 'body',
@@ -41,7 +41,7 @@ module.exports = {
     loaders: [{
       test: /\.jsx?$/,
       exclude: /node_modules/,
-      loader: 'babel',
+      loader: 'babel-loader',
       query: {
         "presets": ["es2015", "stage-0", "react"]
       }
