@@ -1,9 +1,12 @@
 var express = require('express')
 var router = express.Router()
+var User = require('../models/User')
 
 // Domestic animals page
 router.get('/domestic', function(req, res) {
-  res.json({animals: "cows"})
+  res.json({
+    animals: "cows"
+  })
 })
 
 // Wild animals page

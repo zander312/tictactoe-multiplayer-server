@@ -1,12 +1,17 @@
-var knex = require('knex')({
-  client: 'mysql',
-  connection: {
-    host : 'placeholder',
-    port : 'placeholder',
-    user : 'placeholder',
-    password : 'placeholder',
-    database : 'placholder'
-  }
-});
+var Sequelize = require('sequelize');
 
-module.exports = knex;
+var db = new Sequelize(
+  "arcturus",
+  "root",
+  "Fearless1", {
+    host: "localhost",
+    dialect: "mysql",
+    pool: {
+      max: 100,
+      min: 0,
+      idle: 1000
+    }
+  }
+);
+
+module.exports = db;

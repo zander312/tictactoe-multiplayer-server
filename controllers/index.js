@@ -1,10 +1,9 @@
-var express = require('express')
-  , router = express.Router()
+var express = require('express'),
+	router = express.Router()
 
 router.use('/animals', require('./animals'))
 router.use('/cars', require('./cars'))
 
-//This framework intended for isomorphic/single page applications
 //routes should not render pages -- included for reference purposes
 // router.get('/', function(req, res) {
 //   res.send('Home page')
