@@ -3,7 +3,7 @@ import styles from './SomeComponent.scss';
 import logo from '../../assets/1000-secret-lives-cows-1.jpg'
 import axios from 'axios';
 
-export default class App extends React.Component {
+export default class SomeComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {animals: ''};
