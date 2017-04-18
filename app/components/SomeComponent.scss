@@ -1,3 +1,7 @@
+* {
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+
 .table {
 	margin:auto;
 }
@@ -12,4 +16,15 @@
 
 .table td:hover {
 	background-color: lightgrey;
+}
+
+.player {
+	text-align: center;
+	font-size: 24px;
+}
+
+.winner {
+	margin-top: 40px;
+	text-align: center;
+	font-size: 48px;
 }

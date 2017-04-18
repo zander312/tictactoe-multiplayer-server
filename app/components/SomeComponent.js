@@ -12,7 +12,8 @@ export default class SomeComponent extends React.Component {
           ['0', '0', '0'],
           ['0', '0', '0']
         ],
-        player: null
+        player: null,
+        winner: null
       }
     }
 
@@ -20,32 +21,42 @@ export default class SomeComponent extends React.Component {
     socket.emit('fetchData')
     socket.on('player', (data) => {this._setPlayer(data)})
     socket.on('board', (data) => {this._setBoard(data)})
-    socket.on('winner', (data) => {this._winner})
+    socket.on('winner', (data) => {this._winner(data)})
   }
 
   _setPlayer(player){
     this.setState({player: player})
-    console.log(this.state.player)
   }
 
   _setBoard(board){
     this.setState({board : board})
-    console.log(board)
   }
 
   _winner(winner){
-    console.log(winner)
+    this.setState({player: null})
+    this.setState({winner: winner}, () => {
+      setTimeout(()=>{
+        this.setState({winner: null})
+      }, 1000)
+    }) 
   }
 
   handleClick(rowIndex, elementIndex){
-    console.log(rowIndex + " : " + elementIndex)
     socket.emit('click', rowIndex, elementIndex)
+  }
+
+  _displayPlayer(){
+    if(this.state.player){
+      return "player " + this.state.player + " make the move."
+    } else {
+      return "Make the first move!"
+    }
   }
 
   _displayBoard(){
     let rows = this.state.board.map((row, rowIndex) => {
       let elements = row.map((element, elementIndex) => {
-        return <td onClick={() => {this.handleClick(rowIndex, elementIndex)} } key={elementIndex}>{element}</td>
+        return <td onClick={() => {this.handleClick(rowIndex, elementIndex)} } key={elementIndex}>{element == '0' ? null : element}</td>
       })
       return <tr key={rowIndex}>{elements}</tr>
     })
@@ -62,6 +73,8 @@ export default class SomeComponent extends React.Component {
     return (
       <div>
         {this._displayBoard()}
+        <div className={styles.player}>{this._displayPlayer()}</div>
+        <div className={styles.winner}>{this.state.winner ? "Player " + this.state.winner + " Won the GAME!" : null}</div>
       </div>
     );
   }
