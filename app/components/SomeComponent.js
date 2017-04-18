@@ -1,30 +1,67 @@
 import React from 'react';
 import styles from './SomeComponent.scss';
-import logo from '../../assets/1000-secret-lives-cows-1.jpg'
-import axios from 'axios';
+import io from 'socket.io-client'
+let socket = io.connect()
 
 export default class SomeComponent extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {animals: ''};
-  }
+    constructor(props) {
+      super(props);
+      this.state = {
+        board: [
+          ['0', '0', '0'],
+          ['0', '0', '0'],
+          ['0', '0', '0']
+        ],
+        player: null
+      }
+    }
 
   componentDidMount() {
-    axios.get('/animals/domestic')
-      .then(function(res) {
-        console.log(res)
-        this.setState({animals: res.data.animals})
-      }.bind(this))
-      .then(function(err) {
-        console.log(err)
+    socket.emit('fetchData')
+    socket.on('player', (data) => {this._setPlayer(data)})
+    socket.on('board', (data) => {this._setBoard(data)})
+    socket.on('winner', (data) => {this._winner})
+  }
+
+  _setPlayer(player){
+    this.setState({player: player})
+    console.log(this.state.player)
+  }
+
+  _setBoard(board){
+    this.setState({board : board})
+    console.log(board)
+  }
+
+  _winner(winner){
+    console.log(winner)
+  }
+
+  handleClick(rowIndex, elementIndex){
+    console.log(rowIndex + " : " + elementIndex)
+    socket.emit('click', rowIndex, elementIndex)
+  }
+
+  _displayBoard(){
+    let rows = this.state.board.map((row, rowIndex) => {
+      let elements = row.map((element, elementIndex) => {
+        return <td onClick={() => {this.handleClick(rowIndex, elementIndex)} } key={elementIndex}>{element}</td>
       })
+      return <tr key={rowIndex}>{elements}</tr>
+    })
+    return (
+      <table className={styles.table}>
+        <tbody>
+          {rows}
+        </tbody>
+      </table>
+    )
   }
 
   render() {
     return (
-      <div className={styles.headerContainer}>
-        <p>Look an ajax using axios!: {this.state.animals}</p>
-        <img className={styles.logo} src={logo}/>
+      <div>
+        {this._displayBoard()}
       </div>
     );
   }
