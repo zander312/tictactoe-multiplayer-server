@@ -38,15 +38,31 @@ class Board {
 	}
 
 	checkBoard() {
-		if (this.checkRows(this.board)) {
-			return this.checkRows(this.board)
-		} else if (this.checkCols(this.board)) {
-			return this.checkCols(this.board)
-		} else if (this.checkDiag(this.board)) {
-			return this.checkDiag(this.board)
+		if (this.checkRows()) {
+			return this.checkRows()
+		} else if (this.checkCols()) {
+			return this.checkCols()
+		} else if (this.checkDiag()) {
+			return this.checkDiag()
+		} else if (this.checkStalemate()) {
+			return this.checkStalemate()
 		} else {
 			return false
 		}
+	}
+
+	checkStalemate() {
+		var stalemate = 'stalemate'
+		for (var rowIndex = 0; rowIndex < this.board.length; rowIndex++) {
+			var row = this.board[rowIndex]
+			for (var elementIndex = 0; elementIndex < row.length; elementIndex++) {
+				console.log(row[elementIndex])
+				if (row[elementIndex] == '0') {
+					stalemate = false
+				} 
+			}
+		}
+		return stalemate
 	}
 
 	checkWin(arr) {
@@ -107,45 +123,13 @@ class Board {
 
 // var board = new Board()
 // console.log(board.board)
-// console.log(board.player)
-// board.makeMove(0,0)
-// console.log(board.checkBoard())
-// console.log(board.board)
-// console.log(board.player)
-// console.log("__________")
-// board.makeMove(0,1)
-// console.log(board.checkBoard())
-// console.log(board.board)
-// console.log(board.player)
-// console.log("__________")
-// board.makeMove(1,0)
-// console.log(board.checkBoard())
-// console.log(board.board)
-// console.log(board.player)
-// console.log("__________")
-// board.makeMove(1,1)
-// console.log(board.checkBoard())
-// console.log(board.board)
-// console.log(board.player)
-// console.log("__________")
-// board.makeMove(2,0)
-// console.log(board.checkBoard())
-// console.log(board.board)
-// console.log(board.player)
-// console.log("__________")
-
-
-
-
-
+// var test = [
+// 			['0', '0', 'o'],
+// 			['x', 'x', 'x'],
+// 			['x', 'x', 'o']
+// 		]
+// 		board.setBoard(test)
+// 		console.log(board.board)
+// 		console.log(board.checkBoard())
 
 module.exports.Board = Board;
-
-
-
-
-
-
-
-
-
