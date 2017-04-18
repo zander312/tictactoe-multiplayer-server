@@ -1,4 +1,4 @@
-var Board = require('../models/board.js').Board;
+var Board = require('../models/Board.js').Board;
 
 
 function tictacSocket(io) {
