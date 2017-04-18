@@ -13,7 +13,8 @@ export default class SomeComponent extends React.Component {
           ['0', '0', '0']
         ],
         player: null,
-        winner: null
+        winner: null,
+        stalemate: null
       }
     }
 
@@ -22,6 +23,11 @@ export default class SomeComponent extends React.Component {
     socket.on('player', (data) => {this._setPlayer(data)})
     socket.on('board', (data) => {this._setBoard(data)})
     socket.on('winner', (data) => {this._winner(data)})
+    socket.on('stalemate', (data) => {this._stalemate(data)})
+  }
+
+  handleClick(rowIndex, elementIndex){
+    socket.emit('click', rowIndex, elementIndex)
   }
 
   _setPlayer(player){
@@ -37,12 +43,18 @@ export default class SomeComponent extends React.Component {
     this.setState({winner: winner}, () => {
       setTimeout(()=>{
         this.setState({winner: null})
-      }, 1000)
+      }, 2000)
     }) 
   }
 
-  handleClick(rowIndex, elementIndex){
-    socket.emit('click', rowIndex, elementIndex)
+  _stalemate(){
+    this.setState({player: null})
+    this.setState({stalemate: true}, () => {
+      setTimeout(()=>{
+        this.setState({stalemate: null})
+      }, 2000)
+    }) 
+
   }
 
   _displayPlayer(){
@@ -75,6 +87,7 @@ export default class SomeComponent extends React.Component {
         {this._displayBoard()}
         <div className={styles.player}>{this._displayPlayer()}</div>
         <div className={styles.winner}>{this.state.winner ? "Player " + this.state.winner + " Won the GAME!" : null}</div>
+        <div className={styles.winner}>{this.state.stalemate ? "STALEMATE. DO BETTER." : null}</div>
       </div>
     );
   }

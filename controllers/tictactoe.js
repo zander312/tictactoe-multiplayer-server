@@ -17,11 +17,16 @@ function tictacSocket(io) {
 
 		socket.on('click', function(rowIndex, elementIndex) {
 			board.makeMove(rowIndex, elementIndex)
-			if(board.checkBoard()){
+			var boardStatus = board.checkBoard()
+			if(boardStatus && boardStatus !== 'stalemate'){
 				io.sockets.emit('winner', board.checkBoard())
 				board.clearBoard()
 				io.sockets.emit('board', board.board)
-			} else {
+			} else if(boardStatus == 'stalemate') {
+				io.sockets.emit('stalemate')
+				board.clearBoard()
+				io.sockets.emit('board', board.board)
+		  } else {
 				io.sockets.emit('player', board.player)
 				io.sockets.emit('board', board.board)
 			}	
